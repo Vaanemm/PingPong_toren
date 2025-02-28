@@ -16,7 +16,7 @@ else:
     print("connectie gefaald")
 print(ser)
 
-getal_s = 500
+getal_s = 700
 
 #getal_p= 1.2375
 #getal_i = 0.5;
