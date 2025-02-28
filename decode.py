@@ -16,15 +16,13 @@ else:
     print("connectie gefaald")
 print(ser)
 
-print(ser.readline().decode('utf-8'))
-time.sleep(1)
-ser.write(f's600\n'.encode('ascii'))
-print(ser.readline().decode('utf-8'))
-time.sleep(1)
+getal = 400
 
+time.sleep(1)
+ser.write(f's{getal}\n'.encode('ascii'))
 
 while True:
-    time.sleep(1)
+    time.sleep(0.1)
     print(ser.readline().decode('utf-8'))
 
 ser.close()
