@@ -16,10 +16,17 @@ else:
     print("connectie gefaald")
 print(ser)
 
-getal = 400
+getal_s = 500
+
+#getal_p= 1.2375
+#getal_i = 0.5;
+#getal_d = 0.1
 
 time.sleep(1)
-ser.write(f's{getal}\n'.encode('ascii'))
+ser.write(f's{getal_s}\n'.encode('ascii'))
+#ser.write(f'i{getal_i}\n'.encode('ascii'))
+#ser.write(f'd{getal_d}\n'.encode('ascii'))
+#ser.write(f'p{getal_p}\n'.encode('ascii'))
 
 while True:
     time.sleep(0.1)
