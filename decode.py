@@ -7,7 +7,7 @@ for p in ports:
     print(p)
 
 
-ser = Serial('FT232R USB UART', 9600, timeout=0.5)
+ser = Serial('COM8', 9600, timeout=0.5)
 if (ser.is_open):
     print("connectie geslaagd")
 else:
