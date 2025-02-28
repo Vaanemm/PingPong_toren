@@ -6,8 +6,10 @@ ports = list(comports())
 for p in ports:
     print(p)
 
+#print ('t')
 
-ser = Serial('COM8', 9600, timeout=0.5)
+
+ser = Serial('/dev/cu.usbserial-A10JVCT6', 9600, timeout=0.5)
 if (ser.is_open):
     print("connectie geslaagd")
 else:
@@ -16,7 +18,7 @@ print(ser)
 
 print(ser.readline().decode('utf-8'))
 time.sleep(1)
-ser.write(f's200\n'.encode('ascii'))
+ser.write(f's600\n'.encode('ascii'))
 print(ser.readline().decode('utf-8'))
 time.sleep(1)
 
