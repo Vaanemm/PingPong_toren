@@ -7,7 +7,7 @@ for p in ports:
     print(p)
 
 
-ser = Serial('COM5', 9600, timeout=0.5)
+ser = Serial('FT232R USB UART', 9600, timeout=0.5)
 if (ser.is_open):
     print("connectie geslaagd")
 else:
@@ -19,4 +19,10 @@ time.sleep(1)
 ser.write(f's200\n'.encode('ascii'))
 print(ser.readline().decode('utf-8'))
 time.sleep(1)
+
+
+while True:
+    time.sleep(1)
+    print(ser.readline().decode('utf-8'))
+
 ser.close()
