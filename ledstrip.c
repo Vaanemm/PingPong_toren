@@ -3,6 +3,9 @@
 #include "adcMeasurement.h"
 #include "controller.h"
 #include <math.h>
+#include "mcc_generated_files/system/system.h"
+
+
 
 
 
@@ -128,10 +131,19 @@ void updateLedstripAnimation(void) {
     sendLedstripStartFrame();
     
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    
+    
+    
+    
     bool ledGeraakt=true;
-    for (uint8_t led = 0; led < NUMBER_OF_LEDS; led++) { //dan sturen we de waarde van alle leds door.  
+    for (uint8_t led = 0; led < NUMBER_OF_LEDS; led++) { //dan sturen we de waarde van alle leds door.         
         if (ledGeraakt==true){
             sendLedstripFrame(0xFF, 0x00, 0x00, 0x05);
+           //_delay_ms(100);
+            sendLedstripFrame(0x00, 0x00, 0xFF, 0x05);
+        //  __delay_ms(100);
+            sendLedstripFrame(0x00, 0xFF, 0x00, 0x05);
+            
         }else{
             uint16_t hoogtEbal = getHoogtesensor();
             //float rood_hoogte_verschil = 450.0 - hoogtEbal
