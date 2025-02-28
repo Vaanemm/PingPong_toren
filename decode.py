@@ -17,7 +17,6 @@ else:
 print(ser)
 
 getal_s = 700
-
 #getal_p= 1.2375
 #getal_i = 0.5;
 #getal_d = 0.1
