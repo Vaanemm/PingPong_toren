@@ -174,13 +174,41 @@ void updateLedstripAnimation(void) {
     bool ledGeraakt=true;
     if (ledGeraakt == true){
         for (uint8_t led = 0; led < NUMBER_OF_LEDS; led++) {
-            sendLedstripFrame(0xFF, 0x00, 0x00, 0x05);
-            __delay_ms(100);
-            sendLedstripFrame(0x00, 0xFF, 0x00, 0x05);
-            __delay_ms(100)
-            sendLedstripFrame(0x00, 0x00, 0xFF, 0x05);
-            __delay_ms(100);
+            for (uint8_t i=0; i<3; led++){
+                sendLedstripFrame(0xFF, 0x00, 0x00, 0x05);
+                __delay_ms(100);
+                sendLedstripFrame(0x00, 0xFF, 0x00, 0x05);
+                __delay_ms(100)
+                sendLedstripFrame(0x00, 0x00, 0xFF, 0x05);
+                __delay_ms(100);
+            }
         }
+    }else{
+            uint16_t hoogtEbal = getHoogtesensor();
+            //float rood_hoogte_verschil = 450.0 - hoogtEbal
+            //float rood_fout = round( (rood_hoogte_verschil)/125);
+            float hoogtebal_teConverteren = hoogtEbal * (60.0 / 1023.0)-4.5   ;
+
+            uint16_t setPoint = getSetpoint();
+            //int8_t blauw_fout = round( (525 - setPoint)/65);
+            float setpoint_teConverteren = setPoint * (60.0 / 1023.0)-4.5  ;
+
+            uint16_t hoogtebal = round(hoogtebal_teConverteren);
+            uint16_t setpoint = round(setpoint_teConverteren);
+    //        if (led == led_run) {
+    //           sendLedstripFrame(red, green, blue, 0x05);
+    //        }
+            if (led == hoogtebal ){
+                sendLedstripFrame(0xFF, 0x00, 0x00, 0x05);
+            } else {
+                if (led == setpoint) {
+                sendLedstripFrame(0x00, 0x00, 0xFF, 0x05);
+                } else {
+                    sendLedstripFrame(0x00, 0xFF, 0x00, 0x02);
+            }
+            }
+        }
+
     }
        
      //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
