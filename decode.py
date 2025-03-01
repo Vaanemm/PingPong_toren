@@ -16,7 +16,9 @@ else:
     print("connectie gefaald")
 print(ser)
 
-getal_s = 700
+targetGeraakt = False
+ledGeraakt = False
+getal_s = 800
 #getal_p= 1.2375
 #getal_i = 0.5;
 #getal_d = 0.1
@@ -30,5 +32,9 @@ ser.write(f's{getal_s}\n'.encode('ascii'))
 while True:
     time.sleep(0.1)
     print(ser.readline().decode('utf-8'))
+    if (targetGeraakt):
+        ledGeraakt = True
+        targetGeraakt = False
 
 ser.close()
+
