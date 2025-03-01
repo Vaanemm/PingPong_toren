@@ -134,7 +134,7 @@ void updateLedstripAnimation(void) {
     
     
     
-    
+    /*
     bool ledGeraakt=true;
     for (uint8_t led = 0; led < NUMBER_OF_LEDS; led++) { //dan sturen we de waarde van alle leds door.         
         if (ledGeraakt==true){
@@ -169,7 +169,7 @@ void updateLedstripAnimation(void) {
             }
             }
         }
-            
+    */
        
      //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
        
