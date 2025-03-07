@@ -173,16 +173,21 @@ void updateLedstripAnimation(void) {
 
     bool ledGeraakt=true;
     if (ledGeraakt == true){
-        for (uint8_t i=0; i<3; i++){
-            for (uint8_t led = 0; led < NUMBER_OF_LEDS; led++){
-                sendLedstripFrame(0xFF, 0x00, 0x00, 0x05);
-                __delay_ms(100);
-                sendLedstripFrame(0x00, 0xFF, 0x00, 0x05);
-                __delay_ms(100);
-                sendLedstripFrame(0x00, 0x00, 0xFF, 0x05);
-                __delay_ms(100);
-            }
+
+        for (uint8_t led = 0; led < NUMBER_OF_LEDS; led++){
+            sendLedstripFrame(0xFF, 0x00, 0x00, 0x05);
+            sendLedstripFrame(0x00, 0xFF, 0x00, 0x05);
+            sendLedstripFrame(0x00, 0x00, 0xFF, 0x05);
         }
+        __delay_ms(100);
+        sendLedstripEndFrame();
+        sendLedstripStartFrame();
+        for (uint8_t led = 0; led < NUMBER_OF_LEDS; led++){
+            sendLedstripFrame(0xFF, 0x00, 0x00, 0x05);
+        }
+        __delay_ms(100);
+
+
     }else{
         for (uint8_t led = 0; led < NUMBER_OF_LEDS; led++){
             uint16_t hoogtEbal = getHoogtesensor();
