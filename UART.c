@@ -5,6 +5,7 @@
 #include "UART.h"
 #include "mcc_generated_files/pwm/pwm5.h"
 #include "controller.h"
+#include "ledstrip.h"
 
 bool mustPrintLogs = true;
 
@@ -64,6 +65,11 @@ void uartHandler(void) {
     switch (*str) { //*str is het eerste karakter van de gelezen lijn
         case 0: //Geen input
             break;
+        case 'G':
+        case 'g':
+            setLedGeraakt();
+            break;
+
         /*case 'S': //Verander setpoint
         case 's':
             //str+1 omdat str het eerste karakter (s in dit geval) is, de cijfers komen erna

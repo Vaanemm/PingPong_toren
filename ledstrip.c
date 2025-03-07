@@ -4,6 +4,7 @@
 #include "controller.h"
 #include <math.h>
 #include "mcc_generated_files/system/system.h"
+#include "UART.h"
 
 
 
@@ -171,7 +172,7 @@ void updateLedstripAnimation(void) {
         }
     */
 
-    bool ledGeraakt=false;
+    bool ledGeraakt = getLedGeraakt();
     if (ledGeraakt == true){
         for (uint8_t i = 0; i<3; i++){
             sendLedstripStartFrame();
@@ -189,6 +190,7 @@ void updateLedstripAnimation(void) {
             __delay_ms(50);
             sendLedstripEndFrame();
         }
+        setLedGeraakt();
     }else{
         sendLedstripStartFrame();
         for (uint8_t led = 0; led < NUMBER_OF_LEDS; led++){
