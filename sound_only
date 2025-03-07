@@ -1,0 +1,42 @@
+#in terminale: pip install soundplay=1.2.2 (niet hier nodig)
+#in terminal: pip install pygame
+
+import time
+import pygame
+from pygame import mixer
+
+
+pygame.mixer.init()
+
+
+shoot = pygame.mixer.Sound("shoot-1-81135.mp3")
+klappen=pygame.mixer.Sound("crowd-applause-236697.mp3")
+muziek_drummen=pygame.mixer.Sound("cinematic-drums-146028.mp3")
+
+
+
+shoot.set_volume(0.9)  #1.0 is max volume
+klappen.set_volume(0.9)
+muziek_drummen.set_volume(0.025)
+
+count=int(0)
+geraakt=True
+
+while True:
+    count += 1
+    if geraakt==True:
+        muziek_drummen.stop()
+        shoot.play()
+        time.sleep(1)
+        klappen.play()
+        time.sleep(3.2)
+        geraakt=False    #is in seconden
+        
+    else:
+        muziek_drummen.play()
+    
+    print(count)  
+    if count>2000000:
+        geraakt=True
+        count=0
+  
