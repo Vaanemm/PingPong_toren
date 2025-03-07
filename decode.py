@@ -19,8 +19,8 @@ def isGeraakt(target, num):
             num = i
         if ((i > num and i< (num+4)) and (char in cijfers)):
             targetWaarde += char
-    print(targetWaarde)
-    return (int(targetWaarde) > 100)
+    #print(targetWaarde + "ok")
+    return (int(targetWaarde) > 10)
 
 if __name__ == "__main__":
     ports = list(comports())
@@ -54,7 +54,7 @@ if __name__ == "__main__":
         time.sleep(0.1)
         #print(ser.readline().decode('utf-8'))
         lijn = ser.readline().decode('utf-8')
-        print(lijn)
+        #print(lijn)
         if isGeraakt(lijn, num) == True:
             doeDeAnimatie()
             #targetGeraakt = False
