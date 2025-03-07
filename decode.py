@@ -20,10 +20,7 @@ def isGeraakt(target, num):
         if ((i > num and i< (num+4)) and (char in cijfers)):
             targetWaarde += char
     print(targetWaarde)
-    if int(targetWaarde) > 100:
-        return True
-    else:
-        return False
+    return (int(targetWaarde) > 100)
 
 if __name__ == "__main__":
     ports = list(comports())
