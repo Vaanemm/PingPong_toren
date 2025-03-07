@@ -174,7 +174,11 @@ void updateLedstripAnimation(void) {
 
     bool ledGeraakt = getLedGeraakt();
     bool moetStoppen = getMoetStoppen();
-    if (ledGeraakt == true){
+    if (moetStoppen == true){
+            for (uint8_t led = 0; led < NUMBER_OF_LEDS; led++){
+                sendLedstripFrame(0xFF, 0x00, 0x00, 0x05);
+            }
+    }else if (ledGeraakt == true){
         for (uint8_t i = 0; i<3; i++){
             sendLedstripStartFrame();
             for (uint8_t led = 0; led < NUMBER_OF_LEDS; led++){
@@ -192,11 +196,7 @@ void updateLedstripAnimation(void) {
             sendLedstripEndFrame();
         }
         setLedGeraakt();
-    }else if (moetStoppen == true){
-            for (uint8_t led = 0; led < NUMBER_OF_LEDS; led++){
-                sendLedstripFrame(0xFF, 0x00, 0x00, 0x05);
-            }
-    }else{
+    }else {
         sendLedstripStartFrame();
         for (uint8_t led = 0; led < NUMBER_OF_LEDS; led++){
             uint16_t hoogtEbal = getHoogtesensor();
