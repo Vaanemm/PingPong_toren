@@ -36,7 +36,7 @@ if __name__ == "__main__":
         print("connectie gefaald")
     print(ser)
 
-    targetGeraakt = True
+
     getal_s = 800
     # Target = 0
     # getal_p= 1.2375
@@ -57,7 +57,7 @@ if __name__ == "__main__":
         #print(lijn)
         if isGeraakt(lijn, num) == True:
             doeDeAnimatie()
-            #targetGeraakt = False
+
 
 
     ser.close()
