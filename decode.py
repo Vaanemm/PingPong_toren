@@ -8,8 +8,13 @@ def doeDeAnimatie():
     ser.write(f'g\n'.encode('ascii'))
     #print("we zijn er")
 
-def isGeraakt():
-    return targetGeraakt
+def isGeraakt(target):
+    #print(type(target))
+    #print(target)
+    if int(target) > 100:
+        return True
+    else:
+        return False
 
 if __name__ == "__main__":
     ports = list(comports())
@@ -33,7 +38,7 @@ if __name__ == "__main__":
     # getal_d = 0.1
 
     time.sleep(1)
-    ser.write(f's{getal_s}\n'.encode('ascii'))
+    #ser.write(f's{getal_s}\n'.encode('ascii'))
     # ser.write(f'i{getal_i}\n'.encode('ascii'))
     # ser.write(f'd{getal_d}\n'.encode('ascii'))
     # ser.write(f'p{getal_p}\n'.encode('ascii'))
@@ -43,10 +48,10 @@ if __name__ == "__main__":
         time.sleep(0.1)
         #print(ser.readline().decode('utf-8'))
         target = ser.readline().decode('utf-8')
-        print(target)
-        if isGeraakt() == True:
+        #print(target)
+        if isGeraakt(target) == True:
             doeDeAnimatie()
-            targetGeraakt = False
+            #targetGeraakt = False
 
 
     ser.close()
