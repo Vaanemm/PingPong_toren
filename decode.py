@@ -13,14 +13,14 @@ cijfers = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
 def isGeraakt(target, num):
     #print(type(target))
     #print(target)
-    woord = ""
+    targetWaarde = ""
     for i, char in enumerate(lijn):
         if char == 't':
             num = i
         if ((i > num and i< (num+4)) and (char in cijfers)):
-            woord += char
-    print(woord)
-    if int(woord) > 100:
+            targetWaarde += char
+    print(targetWaarde)
+    if int(targetWaarde) > 100:
         return True
     else:
         return False
