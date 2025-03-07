@@ -1,6 +1,8 @@
 #include "adcMeasurement.h"
 #include "mcc_generated_files/pwm/pwm5.h"
 #include "controller.h"
+#include "ledstrip.h"
+#include "mcc_generated_files/system/system.h"
 
 static int hoogte_bal;
 static int setpoint = 500;
@@ -12,16 +14,17 @@ static float before = 30;
 float tijd = 0.1;
 
 static float kp = 1.2375;
-static float ki = 0.5; 
-static float kd = 0.1; 
+static float ki = 0.5;
+static float kd = 0.1;
+static bool ledGeraakt = false;
 
 void controller(void) {
     hoogte_bal = getHoogtesensor(); //resultaat van ADC
     //setpoint = getPotentiometer(); //je kan je setpoint ook ergens anders zetten (dan moet deze lijn uiteraard weg)
-    
+
     int error = setpoint - hoogte_bal;
     int proportional_action = error * kp;
-    int integral_action = integral_action + 0.03*error; 
+    int integral_action = integral_action + 0.03*error;
     float differential_action = (hoogte_bal - before)/tijd;
     int result = proportional_action + ki*integral_action + kd*differential_action;
     if (result<0){
@@ -30,10 +33,10 @@ void controller(void) {
     if (result>1023){
         result = 1023;
     }
-    
-    dutycycle = result;   
+
+    dutycycle = result;
     before = hoogte_bal;
-        
+
     pwm_fan_LoadDutyValue(dutycycle); //output PWM signaal
 }
 
@@ -43,6 +46,7 @@ uint16_t getDutycycle(void) {return dutycycle;}
 float getKp(void) {return kp;}
 float getKi(void) {return ki;}
 float getKd(void) {return kd;}
+bool getLedGeraakt(void) {return ledGeraakt;}
 
 //setters
 void setSetpoint(uint16_t new_setpoint) {setpoint = new_setpoint;}
@@ -50,3 +54,11 @@ void setDutycycle(uint16_t new_dutycycle) {dutycycle = new_dutycycle;}
 void setKp(float new_kp) {kp = new_kp;}
 void setKi(float new_ki) {ki = new_ki;}
 void setKd(float new_kd) {kd = new_kd;}
+void setLedGeraakt(void) {
+    if (ledGeraakt == true){
+        ledGeraakt = false;
+    }else{
+        ledGeraakt = true;
+    }
+}
+//void setTarget(float new_target) {target = new_target;}

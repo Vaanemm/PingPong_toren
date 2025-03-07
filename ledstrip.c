@@ -4,6 +4,7 @@
 #include "controller.h"
 #include <math.h>
 #include "mcc_generated_files/system/system.h"
+#include "UART.h"
 
 
 
@@ -45,7 +46,7 @@ enum count {
 };
 
 void updateLedstripAnimation(void) {
-    
+
     static uint8_t counter = 0;
     static uint8_t intensity = 0;
     static uint8_t i = 0;
@@ -75,7 +76,7 @@ void updateLedstripAnimation(void) {
             }
             break;
     }
-  
+
 
     switch (change_color) {
         case GREEN_UP:
@@ -124,26 +125,26 @@ void updateLedstripAnimation(void) {
 
     */
 //    static float conv = (60/850);
-    
+
 // uint16_t hoogte_bal_teConverteren = getHoogtesensor();
-//       float hoogte_bal = (60/850)*hoogte_bal_teConverteren;  
+//       float hoogte_bal = (60/850)*hoogte_bal_teConverteren;
     //start frame: eerst laten we weten dat we data gaan doorsturen
-    sendLedstripStartFrame();
-    
+
+
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    
-    
-    
+
+
+
     /*
     bool ledGeraakt=true;
-    for (uint8_t led = 0; led < NUMBER_OF_LEDS; led++) { //dan sturen we de waarde van alle leds door.         
+    for (uint8_t led = 0; led < NUMBER_OF_LEDS; led++) { //dan sturen we de waarde van alle leds door.
         if (ledGeraakt==true){
             sendLedstripFrame(0xFF, 0x00, 0x00, 0x05);
            //_delay_ms(100);
             sendLedstripFrame(0x00, 0x00, 0xFF, 0x05);
         //  __delay_ms(100);
             sendLedstripFrame(0x00, 0xFF, 0x00, 0x05);
-            
+
         }else{
             uint16_t hoogtEbal = getHoogtesensor();
             //float rood_hoogte_verschil = 450.0 - hoogtEbal
@@ -171,19 +172,28 @@ void updateLedstripAnimation(void) {
         }
     */
 
-    bool ledGeraakt=true;
+    bool ledGeraakt = getLedGeraakt();
     if (ledGeraakt == true){
-        for (uint8_t i=0; i<3; led++){
+        for (uint8_t i = 0; i<3; i++){
+            sendLedstripStartFrame();
+            for (uint8_t led = 0; led < NUMBER_OF_LEDS; led++){
+            sendLedstripFrame(0xFF, 0x00, 0x00, 0x05);
+            sendLedstripFrame(0x00, 0xFF, 0x00, 0x05);
+            sendLedstripFrame(0x00, 0x00, 0xFF, 0x05);
+            }
+            __delay_ms(50);
+            sendLedstripEndFrame();
+            sendLedstripStartFrame();
             for (uint8_t led = 0; led < NUMBER_OF_LEDS; led++){
                 sendLedstripFrame(0xFF, 0x00, 0x00, 0x05);
-                __delay_ms(100);
-                sendLedstripFrame(0x00, 0xFF, 0x00, 0x05);
-                __delay_ms(100)
-                sendLedstripFrame(0x00, 0x00, 0xFF, 0x05);
-                __delay_ms(100);
             }
+            __delay_ms(50);
+            sendLedstripEndFrame();
         }
+        setLedGeraakt();
     }else{
+        sendLedstripStartFrame();
+        for (uint8_t led = 0; led < NUMBER_OF_LEDS; led++){
             uint16_t hoogtEbal = getHoogtesensor();
             //float rood_hoogte_verschil = 450.0 - hoogtEbal
             //float rood_fout = round( (rood_hoogte_verschil)/125);
@@ -203,22 +213,27 @@ void updateLedstripAnimation(void) {
             } else {
                 if (led == setpoint) {
                 sendLedstripFrame(0x00, 0x00, 0xFF, 0x05);
-                } else {
-                    sendLedstripFrame(0x00, 0xFF, 0x00, 0x02);
+                }else if (led <= setpoint){
+                    sendLedstripFrame(0x00, 0xFF, 0x00, 0x05);
+                }else if (led>setpoint){
+                    sendLedstripFrame(0x00, 0x00, 0x00, 0x05);
+                }
             }
             }
+        sendLedstripEndFrame();
         }
 
-    }
-       
+
+
+
      //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-       
-        
-    }
+
+
+
     //stop frame: uiteindelijk laten we weten dat we alle data hebben doorgestuurd
-    sendLedstripEndFrame();
-     
+
 }
+
 
 void initLedstrip(void) {
     ledstrip_Open(HOST_CONFIG);

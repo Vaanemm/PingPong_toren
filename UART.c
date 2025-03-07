@@ -5,6 +5,7 @@
 #include "UART.h"
 #include "mcc_generated_files/pwm/pwm5.h"
 #include "controller.h"
+#include "ledstrip.h"
 
 bool mustPrintLogs = true;
 
@@ -41,13 +42,14 @@ char* readLine(void) {
 }
 
 void printLogs(void) {
-    /*
+
     //Schrijf naar de COM poort
     if (mustPrintLogs) {
         //printf("hoogte: %u", getHoogtesensor());
         //printf(", setpoint: %u", getSetpoint());
         //printf(", duty cycle: %u", getDutycycle());
-        printf(", target: %u", getTarget());
+        //printf(", target: %u", getTargdet());
+        printf("%u", getTarget());
         //Dit zijn dure prints qua geheugen (zo'n 5 %). Als je microcontroller
         //volgeraakt, kan je de printFloat uitschakelen
         //printf(", kp: "); printFloat(getKp());
@@ -55,7 +57,7 @@ void printLogs(void) {
         //printf(", kd: "); printFloat(getKd());
         printf("\r\n");
     }
-     * */
+
 }
 
 void uartHandler(void) {
@@ -63,6 +65,11 @@ void uartHandler(void) {
     switch (*str) { //*str is het eerste karakter van de gelezen lijn
         case 0: //Geen input
             break;
+        case 'G':
+        case 'g':
+            setLedGeraakt();
+            break;
+
         /*case 'S': //Verander setpoint
         case 's':
             //str+1 omdat str het eerste karakter (s in dit geval) is, de cijfers komen erna
