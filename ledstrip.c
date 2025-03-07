@@ -173,6 +173,7 @@ void updateLedstripAnimation(void) {
     */
 
     bool ledGeraakt = getLedGeraakt();
+    bool moetStoppen = getMoetStoppen();
     if (ledGeraakt == true){
         for (uint8_t i = 0; i<3; i++){
             sendLedstripStartFrame();
@@ -191,6 +192,10 @@ void updateLedstripAnimation(void) {
             sendLedstripEndFrame();
         }
         setLedGeraakt();
+    }else if (moetStoppen == true){
+            for (uint8_t led = 0; led < NUMBER_OF_LEDS; led++){
+                sendLedstripFrame(0xFF, 0x00, 0x00, 0x05);
+            }
     }else{
         sendLedstripStartFrame();
         for (uint8_t led = 0; led < NUMBER_OF_LEDS; led++){
@@ -239,3 +244,4 @@ void initLedstrip(void) {
     ledstrip_Open(HOST_CONFIG);
     tmr_ledstrip_OverflowCallbackRegister(updateLedstripAnimation);
 }
+

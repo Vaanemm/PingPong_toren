@@ -17,6 +17,7 @@ static float kp = 1.2375;
 static float ki = 0.5;
 static float kd = 0.1;
 static bool ledGeraakt = false;
+static bool moetStoppen = false;
 
 void controller(void) {
     hoogte_bal = getHoogtesensor(); //resultaat van ADC
@@ -47,18 +48,24 @@ float getKp(void) {return kp;}
 float getKi(void) {return ki;}
 float getKd(void) {return kd;}
 bool getLedGeraakt(void) {return ledGeraakt;}
+bool getMoetStoppen(void) {return moetStoppen;}
 
 //setters
-void setSetpoint(uint16_t new_setpoint) {setpoint = new_setpoint;}
+//void setSetpoint(uint16_t new_setpoint) {setpoint = new_setpoint;}
 void setDutycycle(uint16_t new_dutycycle) {dutycycle = new_dutycycle;}
-void setKp(float new_kp) {kp = new_kp;}
-void setKi(float new_ki) {ki = new_ki;}
-void setKd(float new_kd) {kd = new_kd;}
+//void setKp(float new_kp) {kp = new_kp;}
+//void setKi(float new_ki) {ki = new_ki;}
+//void setKd(float new_kd) {kd = new_kd;}
 void setLedGeraakt(void) {
     if (ledGeraakt == true){
         ledGeraakt = false;
     }else{
         ledGeraakt = true;
     }
+}
+void intruder(void){
+    moetStoppen = true;
+    __delay_ms(1000);
+    moetStoppen = false;
 }
 //void setTarget(float new_target) {target = new_target;}

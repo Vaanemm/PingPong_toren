@@ -47,9 +47,9 @@ void printLogs(void) {
     if (mustPrintLogs) {
         //printf("hoogte: %u", getHoogtesensor());
         //printf(", setpoint: %u", getSetpoint());
-        //printf(", duty cycle: %u", getDutycycle());
+        //printf("d%u", getDutycycle());
         //printf(", target: %u", getTargdet());
-        printf("%u", getTarget());
+        printf("t%u", getTarget());
         //Dit zijn dure prints qua geheugen (zo'n 5 %). Als je microcontroller
         //volgeraakt, kan je de printFloat uitschakelen
         //printf(", kp: "); printFloat(getKp());
@@ -69,7 +69,10 @@ void uartHandler(void) {
         case 'g':
             setLedGeraakt();
             break;
-
+        case 'X':
+        case 'x':
+            intruder();
+            break;
         /*case 'S': //Verander setpoint
         case 's':
             //str+1 omdat str het eerste karakter (s in dit geval) is, de cijfers komen erna
