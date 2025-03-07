@@ -128,7 +128,7 @@ void updateLedstripAnimation(void) {
 // uint16_t hoogte_bal_teConverteren = getHoogtesensor();
 //       float hoogte_bal = (60/850)*hoogte_bal_teConverteren;
     //start frame: eerst laten we weten dat we data gaan doorsturen
-    sendLedstripStartFrame();
+
 
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -171,24 +171,26 @@ void updateLedstripAnimation(void) {
         }
     */
 
-    bool ledGeraakt=true;
+    bool ledGeraakt=false;
     if (ledGeraakt == true){
-
-        for (uint8_t led = 0; led < NUMBER_OF_LEDS; led++){
+        for (uint8_t i = 0; i<3; i++){
+            sendLedstripStartFrame();
+            for (uint8_t led = 0; led < NUMBER_OF_LEDS; led++){
             sendLedstripFrame(0xFF, 0x00, 0x00, 0x05);
             sendLedstripFrame(0x00, 0xFF, 0x00, 0x05);
             sendLedstripFrame(0x00, 0x00, 0xFF, 0x05);
+            }
+            __delay_ms(50);
+            sendLedstripEndFrame();
+            sendLedstripStartFrame();
+            for (uint8_t led = 0; led < NUMBER_OF_LEDS; led++){
+                sendLedstripFrame(0xFF, 0x00, 0x00, 0x05);
+            }
+            __delay_ms(50);
+            sendLedstripEndFrame();
         }
-        __delay_ms(100);
-        sendLedstripEndFrame();
-        sendLedstripStartFrame();
-        for (uint8_t led = 0; led < NUMBER_OF_LEDS; led++){
-            sendLedstripFrame(0xFF, 0x00, 0x00, 0x05);
-        }
-        __delay_ms(100);
-
-
     }else{
+        sendLedstripStartFrame();
         for (uint8_t led = 0; led < NUMBER_OF_LEDS; led++){
             uint16_t hoogtEbal = getHoogtesensor();
             //float rood_hoogte_verschil = 450.0 - hoogtEbal
@@ -209,12 +211,16 @@ void updateLedstripAnimation(void) {
             } else {
                 if (led == setpoint) {
                 sendLedstripFrame(0x00, 0x00, 0xFF, 0x05);
-                } else {
-                    sendLedstripFrame(0x00, 0xFF, 0x00, 0x02);
+                }else if (led <= setpoint){
+                    sendLedstripFrame(0x00, 0xFF, 0x00, 0x05);
+                }else if (led>setpoint){
+                    sendLedstripFrame(0x00, 0x00, 0x00, 0x05);
                 }
             }
             }
+        sendLedstripEndFrame();
         }
+
 
 
 
@@ -223,7 +229,7 @@ void updateLedstripAnimation(void) {
 
 
     //stop frame: uiteindelijk laten we weten dat we alle data hebben doorgestuurd
-    sendLedstripEndFrame();
+
 }
 
 
