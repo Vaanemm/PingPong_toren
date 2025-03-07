@@ -14,10 +14,9 @@ def isGeraakt(target):
     woord = ""
     for i, char in enumerate(lijn):
         if char == 't':
-            for y in range(i+1, i+4):
-                for z, ste in enumerate(lijn):
-                    if z == y:
-                        woord += ste
+            num = i
+        if i > num and i< (num+4):
+            woord += char
     print(woord)
     if int(woord) > 100:
         return True
