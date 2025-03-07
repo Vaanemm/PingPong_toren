@@ -9,6 +9,7 @@ def doeDeAnimatie():
     #print("we zijn er")
 
 num = 10000
+cijfers = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
 def isGeraakt(target, num):
     #print(type(target))
     #print(target)
@@ -16,8 +17,11 @@ def isGeraakt(target, num):
     for i, char in enumerate(lijn):
         if char == 't':
             num = i
-        if i > num and i< (num+4):
-            woord += char
+        if (i > num and i< (num+4)):
+            if (char in cijfers):
+                woord += char
+            else:
+                woord += 0
     print(woord)
     if int(woord) > 100:
         return True
