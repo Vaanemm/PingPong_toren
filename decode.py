@@ -17,11 +17,8 @@ def isGeraakt(target, num):
     for i, char in enumerate(lijn):
         if char == 't':
             num = i
-        if (i > num and i< (num+4)):
-            if (char in cijfers):
-                woord += char
-            else:
-                woord += 0
+        if ((i > num and i< (num+4)) and (char in cijfers)):
+            woord += char
     print(woord)
     if int(woord) > 100:
         return True
