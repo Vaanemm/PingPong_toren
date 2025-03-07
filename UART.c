@@ -41,13 +41,14 @@ char* readLine(void) {
 }
 
 void printLogs(void) {
-    /*
+
     //Schrijf naar de COM poort
     if (mustPrintLogs) {
         //printf("hoogte: %u", getHoogtesensor());
         //printf(", setpoint: %u", getSetpoint());
         //printf(", duty cycle: %u", getDutycycle());
-        printf(", target: %u", getTarget());
+        //printf(", target: %u", getTargdet());
+        printf("%u", getTarget());
         //Dit zijn dure prints qua geheugen (zo'n 5 %). Als je microcontroller
         //volgeraakt, kan je de printFloat uitschakelen
         //printf(", kp: "); printFloat(getKp());
@@ -55,7 +56,7 @@ void printLogs(void) {
         //printf(", kd: "); printFloat(getKd());
         printf("\r\n");
     }
-     * */
+
 }
 
 void uartHandler(void) {
