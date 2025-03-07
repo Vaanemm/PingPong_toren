@@ -12,9 +12,12 @@ def isGeraakt(target):
     #print(type(target))
     #print(target)
     woord = ""
-    for i, char in enumerate(target):
-        if i > 0:
-            woord += char
+    for i, char in enumerate(lijn):
+        if char == 't':
+            for y in range(i+1, i+4):
+                for z, ste in enumerate(lijn):
+                    if z == y:
+                        woord += ste
     print(woord)
     if int(woord) > 100:
         return True
@@ -52,9 +55,9 @@ if __name__ == "__main__":
     while True:
         time.sleep(0.1)
         #print(ser.readline().decode('utf-8'))
-        target = ser.readline().decode('utf-8')
-        print(target)
-        if isGeraakt(target) == True:
+        lijn = ser.readline().decode('utf-8')
+        print(lijn)
+        if isGeraakt(lijn) == True:
             doeDeAnimatie()
             #targetGeraakt = False
 
