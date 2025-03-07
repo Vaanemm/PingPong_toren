@@ -8,7 +8,8 @@ def doeDeAnimatie():
     ser.write(f'g\n'.encode('ascii'))
     #print("we zijn er")
 
-def isGeraakt(target):
+num = 10000
+def isGeraakt(target, num):
     #print(type(target))
     #print(target)
     woord = ""
@@ -56,7 +57,7 @@ if __name__ == "__main__":
         #print(ser.readline().decode('utf-8'))
         lijn = ser.readline().decode('utf-8')
         print(lijn)
-        if isGeraakt(lijn) == True:
+        if isGeraakt(lijn, num) == True:
             doeDeAnimatie()
             #targetGeraakt = False
 
