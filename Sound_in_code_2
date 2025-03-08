@@ -69,7 +69,7 @@ if __name__ == "__main__":
     klappen.set_volume(0.9)
     muziek_drummen.set_volume(0.04)
 
-
+    targetGeraakt = False
     while True:
         time.sleep(0.1)
         #print(ser.readline().decode('utf-8'))
@@ -94,7 +94,7 @@ if __name__ == "__main__":
             print("Niet geraakt")
             muziek_drummen.play()
             
-#zie Sound_python file. We gaan wel heel veel en snel door de while loop (zie je aan de count die snel stijgt)
+#zie Sound_only file. We gaan wel heel veel en snel door de while loop (zie je aan de count die snel stijgt)
 #die isGeraakt functie gaat maar effe True geven en voor de rest False. Ik wil niet dat de muziek van is geraakt en niet geraakt 
 #tegelijk speelt. Daar als terget geraakt, spelen we eerst de animantie van geraakt, en dan pas van niet geraakt.            
                 
