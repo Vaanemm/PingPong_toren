@@ -244,4 +244,3 @@ void initLedstrip(void) {
     ledstrip_Open(HOST_CONFIG);
     tmr_ledstrip_OverflowCallbackRegister(updateLedstripAnimation);
 }
-
