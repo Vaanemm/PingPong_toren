@@ -50,6 +50,7 @@ void printLogs(void) {
         //printf("d%u", getDutycycle());
         //printf(", target: %u", getTargdet());
         printf("t%u", getTarget());
+        printf("p%u", buiten());
         //Dit zijn dure prints qua geheugen (zo'n 5 %). Als je microcontroller
         //volgeraakt, kan je de printFloat uitschakelen
         //printf(", kp: "); printFloat(getKp());
@@ -72,6 +73,10 @@ void uartHandler(void) {
         case 'X':
         case 'x':
             intruder();
+            break;
+        case 'Z':
+        case 'z':
+            nobody();
             break;
         /*case 'S': //Verander setpoint
         case 's':
