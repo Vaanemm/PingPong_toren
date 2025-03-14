@@ -1,7 +1,7 @@
 #include "mcc_generated_files/adc/adc.h"
 #include "adcMeasurement.h"
 volatile uint16_t ADC_potentiometer;
-volatile uint16_t ADC_potentiometer, ADC_hoogtesensor, ADC_target;
+volatile uint16_t ADC_potentiometer, ADC_hoogtesensor, ADC_target, ADC_target2;
 
 void adcConversionDoneHandler(void) {
     /* static zorgt dat de waarde behouden blijft over functiecalls heen, en dat
@@ -21,7 +21,12 @@ void adcConversionDoneHandler(void) {
         case target:
             ADC_target = ADC_GetConversionResult();
             new_channel = potentiometer;
-            break;        
+            break;
+        /*
+        case target2:
+            ADC_target2 = ADC_GetConversionResult();
+            new_channel = potentiometer;
+            break;  */  
     }
     ADC_SelectChannel(new_channel);
 }
@@ -42,3 +47,7 @@ uint16_t getHoogtesensor(void) {
 uint16_t getTarget(void) {
     return ADC_target;
 }
+/*
+uint16_t getTarget2(void) {
+    return ADC_target2;
+}*/
