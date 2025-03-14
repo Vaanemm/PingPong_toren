@@ -28,7 +28,7 @@ void adcConversionDoneHandler(void) {
             break;  
         case target3:
             ADC_target3 = ADC_GetConversionResult();
-            new_channel = potentiometer;
+            new_channel = target4;
             break;  
         case target4:
             ADC_target4 = ADC_GetConversionResult();
