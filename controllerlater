@@ -66,9 +66,9 @@ void setDutycycle(uint16_t new_dutycycle) {dutycycle = new_dutycycle;}
 //void setKd(float new_kd) {kd = new_kd;}
 void setLedGeraakt(void) {
     if (ledGeraakt == true){
-        ledGeraakt = 1;
+        ledGeraakt = false;
     }else{
-        ledGeraakt = 0;
+        ledGeraakt = true;
     }
 }
 void intruder(void){
