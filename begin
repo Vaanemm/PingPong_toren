@@ -9,21 +9,32 @@ def doeDeAnimatie():
     #print("we zijn er")
 
 num = 10000
+numP = 10000
+numC = 10000
 
-cijfers = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
-def isGeraakt(target, num):
+cijfers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+def isGeraakt(target, num, numP, numC):
     #print(type(target))
     #print(target)
     targetWaarde = "0"
     stopWaarde = ""
+    countWaarde = ""
     lijn = ser.readline().decode('utf-8')
-    for i, char in enumerate(lijn):
+    for i, char in enumerate(lijn): 
         if char == 't':
             num = i
         if ((i > num and i< (num+4)) and (char in cijfers)):
             targetWaarde += char
-    #print(targetWaarde)
-    return (int(targetWaarde) > 100)
+        if char == 'p':
+            numP = i
+        if (i == (numP+1)):
+            stopWaarde = char
+        if char == 'c':
+            numC= i
+        if (i == (numC+1)):
+            countWaarde = char
+    #print(targetWaarde, "en", stopWaarde)
+    return ((int(targetWaarde) > 20), int(stopWaarde), int(countWaarde))
 
 if __name__ == "__main__":
     ports = list(comports())
