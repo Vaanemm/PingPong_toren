@@ -49,16 +49,17 @@ void printLogs(void) {
         //printf(", setpoint: %u", getSetpoint());
         //printf("d%u", getDutycycle());
         //printf(", target: %u", getTargdet());
-        printf("t%u", getTarget());
-        //printf("b%u", getTarget2());
-        //printf("p%u", buiten());
-        printf("c%u", getCount());
+        printf("a%u", getTarget());
+        printf("b%u", getTarget2());
+        printf("c%u", getTarget3());
+        printf("d%u", getTarget4());
+        printf("e%u", getCount());
         //Dit zijn dure prints qua geheugen (zo'n 5 %). Als je microcontroller
         //volgeraakt, kan je de printFloat uitschakelen
         //printf(", kp: "); printFloat(getKp());
         //printf(", ki: "); printFloat(getKi());
         //printf(", kd: "); printFloat(getKd());
-        //printf("\r\n");
+        printf("\r\n");
     }
 
 }
@@ -114,6 +115,7 @@ void uartHandler(void) {
             printf("Unkown command\r\n");
     };
 }
+
 //Print een float met 3 cijfers na de komma
 void printFloat(float number) {
     int8_t integer_part = (int8_t) number;
