@@ -12,7 +12,7 @@ def doeDeAnimatie():
 numB = 10000
 numC = 10000
 numD = 10000
-numE= 10000'''
+numE= 10000 ho ho ho'''
 
 cijfers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
 alfabet = ["a", "b", "c", "d", "e", "f", "g", "h"]
