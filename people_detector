@@ -6,6 +6,8 @@ import cv2
 from serial.tools.list_ports import comports
 from serial import Serial
 import time
+from pygame import mixer
+import pygame
 
 from Begin import doeDeAnimatie
 from Begin import isGeraakt
@@ -82,7 +84,14 @@ if __name__ == '__main__':
 
 
 
-
+    pygame.mixer.init()
+    shoot = pygame.mixer.Sound("/Users/vladislavandruetan/Downloads/shoot-1-81135.mp3")
+    klappen=pygame.mixer.Sound("/Users/vladislavandruetan/Downloads/crowd-applause-236697.mp3")
+    muziek_drummen=pygame.mixer.Sound("/Users/vladislavandruetan/Downloads/cinematic-drums-146028.mp3")
+    
+    shoot.set_volume(0.9)  #1.0 is max volume
+    klappen.set_volume(0.9)
+    muziek_drummen.set_volume(0.04)
 
 
     try:
@@ -129,10 +138,17 @@ if __name__ == '__main__':
             
             
             lijn = ser.readline().decode('utf-8')
-            #print(lijn)
+            print(lijn)
             
             if isGeraakt(lijn, num) == True:
                 doeDeAnimatie()
+                muziek_drummen.stop()
+                shoot.play()
+                #time.sleep(1)
+                klappen.play()
+                #time.sleep(3.2) #is in seconden
+            else:
+                muziek_drummen.play()
              
                 
              
