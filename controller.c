@@ -49,13 +49,14 @@ float getKi(void) {return ki;}
 float getKd(void) {return kd;}
 bool getLedGeraakt(void) {return ledGeraakt;}
 bool getMoetStoppen(void) {return moetStoppen;}
+/*
 int buiten(void) {
     if (moetStoppen == true){
         return 0;
     }else{
         return 1;
     }
-}
+}*/
 
 
 //setters
