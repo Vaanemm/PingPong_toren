@@ -49,6 +49,14 @@ float getKi(void) {return ki;}
 float getKd(void) {return kd;}
 bool getLedGeraakt(void) {return ledGeraakt;}
 bool getMoetStoppen(void) {return moetStoppen;}
+int buiten(void) {
+    if (moetStoppen == true){
+        return 0;
+    }else{
+        return 1;
+    }
+}
+
 
 //setters
 //void setSetpoint(uint16_t new_setpoint) {setpoint = new_setpoint;}
@@ -65,7 +73,9 @@ void setLedGeraakt(void) {
 }
 void intruder(void){
     moetStoppen = true;
-    __delay_ms(1000);
+}
+
+void nobody(void){
     moetStoppen = false;
 }
 //void setTarget(float new_target) {target = new_target;}
