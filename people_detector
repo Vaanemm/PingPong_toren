@@ -121,9 +121,9 @@ if __name__ == '__main__':
         
             boxes = np.array([[x, y, x + w, y + h] for (x, y, w, h) in boxes])
             if len(boxes)>0:
-                ser.write(f'x\n'.encode('ascii'))
+                ser.write('x\n'.encode('ascii'))
             else:
-                ser.write(f'z\n'.encode('ascii'))
+                ser.write('z\n'.encode('ascii'))
             
         
             for (xA, yA, xB, yB) in boxes:
@@ -143,7 +143,7 @@ if __name__ == '__main__':
             lijn = ser.readline().decode('utf-8')
             print(lijn)
             
-            geraakt, geraakt2, geraakt3, geraakt4, countWaarde = isGeraakt(lijn, num, numB, numC, numD, numE)
+            geraakt, geraakt2, geraakt3, geraakt4, countWaarde = isGeraakt(num, numB, numC, numD, numE)
             print("Geraakt =", geraakt, "Geraakt2 =", geraakt2,"Geraakt3 =", geraakt3,"Geraakt4 =", geraakt4, "countWaarde =",countWaarde)
             
             if countWaarde == 1:
