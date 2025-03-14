@@ -1,68 +1,35 @@
-""" IMPORTS """
-
-import numpy as np
-import cv2
-
 from serial.tools.list_ports import comports
 from serial import Serial
 import time
 
-from Begin import doeDeAnimatie
-from Begin import isGeraakt
-
 ser = Serial('/dev/cu.usbserial-A10JVCT6', 9600, timeout=0.5)
 
-""" MAIN """
+def doeDeAnimatie():
+    ser.write(f'g\n'.encode('ascii'))
+    #print("we zijn er")
 
-if __name__ == '__main__':
+num = 10000
+cijfers = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+def isGeraakt(target, num):
+    #print(type(target))
+    #print(target)
+    targetWaarde = "0"
+    lijn = ser.readline().decode('utf-8')
+    for i, char in enumerate(lijn):
+        if char == 't':
+            num = i
+        if ((i > num and i< (num+4)) and (char in cijfers)):
+            targetWaarde += char
+    print(targetWaarde)
+    return (int(targetWaarde) > 100)
 
-    webcam = True
-
-    # open webcam video stream
-    if webcam:
-        cap = cv2.VideoCapture(0)
-        
-    else:
-        import pyrealsense2 as rs
-        
-        # Configure streams
-        pipeline = rs.pipeline()
-        config = rs.config()
-
-        config.enable_stream(rs.stream.depth, rs.format.z16, 30)
-        other_stream, other_format = rs.stream.color, rs.format.bgr8
-        config.enable_stream(other_stream, other_format, 30)
-
-        # Start streaming
-        pipeline.start(config)
-        profile = pipeline.get_active_profile()
-
-
-    # initialize the HOG descriptor/person detector
-    hog = cv2.HOGDescriptor()
-    hog.setSVMDetector(cv2.HOGDescriptor_getDefaultPeopleDetector())
-
-    cv2.startWindowThread()
-
-    # the output will be written to output.avi
-    out = cv2.VideoWriter(
-        'output.avi',
-        cv2.VideoWriter_fourcc(*'MJPG'),
-        15.,
-        (640,480))
-    
-    
-    
-    
-    
-    
-    
+if __name__ == "__main__":
     ports = list(comports())
     for p in ports:
         print(p)
 
     # print ('t')
-
+    
     
     if (ser.is_open):
         print("connectie geslaagd")
@@ -77,79 +44,21 @@ if __name__ == '__main__':
     # getal_i = 0.5;
     # getal_d = 0.1
 
-    
-    num = 1000
+    time.sleep(1)
+    #ser.write(f's{getal_s}\n'.encode('ascii'))
+    # ser.write(f'i{getal_i}\n'.encode('ascii'))
+    # ser.write(f'd{getal_d}\n'.encode('ascii'))
+    # ser.write(f'p{getal_p}\n'.encode('ascii'))
+
+
+    while True:
+        time.sleep(0.1)
+        #print(ser.readline().decode('utf-8'))
+        lijn = ser.readline().decode('utf-8')
+        #print(lijn)
+        if isGeraakt(lijn, num) == True:
+            doeDeAnimatie()
 
 
 
-
-
-
-    try:
-        while(True):
-            if webcam:
-                # Capture frame-by-frame for computer webcam
-                ret, frame = cap.read()
-            
-            else:
-                frames = pipeline.wait_for_frames()
-                color_frame = frames.get_color_frame()
-                color_image = np.asanyarray(color_frame.get_data())
-                    
-            
-                # resizing for faster detection
-                frame = cv2.resize(color_image, (640, 480))
-            
-            # using a greyscale picture, also for faster detection
-            gray = cv2.cvtColor(frame, cv2.COLOR_RGB2GRAY)
-        
-            # detect people in the image
-            # returns the bounding boxes for the detected objects
-            boxes, weights = hog.detectMultiScale(gray, winStride=(8,8), hitThreshold=0.3)
-        
-            boxes = np.array([[x, y, x + w, y + h] for (x, y, w, h) in boxes])
-            if len(boxes)>0:
-                ser.write(f'x\n'.encode('ascii'))
-            else:
-                ser.write(f'z\n'.encode('ascii'))
-            
-        
-            for (xA, yA, xB, yB) in boxes:
-                # display the detected boxes in the colour picture
-                cv2.rectangle(frame, (xA, yA), (xB, yB),
-                                  (0, 255, 0), 2)
-            
-            # Write the output video
-            out.write(frame.astype('uint8'))
-            # Display the resulting frame
-            cv2.imshow('frame',frame)
-            
-            
-            
-            
-            
-            lijn = ser.readline().decode('utf-8')
-            #print(lijn)
-            
-            if isGeraakt(lijn, num) == True:
-                doeDeAnimatie()
-             
-                
-             
-                
-             
-            # Escape
-            k = cv2.waitKey(1)
-            if k == 27:
-                break
-            
-    finally:
-        if webcam:
-            # When everything done, release the capture
-            cap.release()
-        else:
-            pipeline.stop()
-        # release the output
-        out.release()
-        # finally, close the window
-        cv2.destroyAllWindows()
+    ser.close()
