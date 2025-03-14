@@ -1,0 +1,40 @@
+/* 
+ * File:   controller.h
+ * Author: Friday
+ *
+ * Created on February 14, 2025, 2:57 PM
+ */
+
+#include "mcc_generated_files/system/system.h"
+
+#ifndef CONTROLLER_H
+#define	CONTROLLER_H
+
+#ifdef	__cplusplus
+extern "C" {
+#endif
+
+void controller(void);
+uint16_t getSetpoint(void);
+uint16_t getDutycycle(void);
+void setSetpoint(uint16_t new_setpoint);
+void setDutycycle(uint16_t new_dutycycle);
+float getKp(void);
+float getKi(void);
+float getKd(void);
+bool getLedGeraakt(void);
+bool getMoetStoppen(void);
+void setKp(float new_kp);
+void setKi(float new_ki);
+void setKd(float new_kd);
+void setLedGeraakt(void);
+void intruder(void);
+void noBody(void);
+//void setTarget(float new_target);
+
+#ifdef	__cplusplus
+}
+#endif
+
+#endif	/* CONTROLLER_H */
+
