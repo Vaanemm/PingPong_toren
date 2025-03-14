@@ -22,7 +22,7 @@ if __name__ == '__main__':
 
     # open webcam video stream
     if webcam:
-        cap = cv2.VideoCapture(0)
+        cap = cv2.VideoCapture(1)
         
     else:
         import pyrealsense2 as rs
@@ -81,7 +81,8 @@ if __name__ == '__main__':
 
     
     num = 1000
-
+    numP = 1000
+    numC = 1000
 
 
     pygame.mixer.init()
@@ -140,7 +141,14 @@ if __name__ == '__main__':
             lijn = ser.readline().decode('utf-8')
             print(lijn)
             
-            if isGeraakt(lijn, num) == True:
+            geraakt, stop, countWaarde = isGeraakt(lijn, num, numP, numC)
+            print("Geraakt =", geraakt, "stopWaarde =", stop, "countWaarde =",countWaarde, type(countWaarde))
+            
+            if countWaarde == 1:
+                #print("in de stopping")
+                muziek_drummen.stop()
+            elif geraakt == True:
+                #print('je zou moeten raken')
                 doeDeAnimatie()
                 muziek_drummen.stop()
                 shoot.play()
