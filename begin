@@ -9,19 +9,49 @@ def doeDeAnimatie():
     #print("we zijn er")
 
 num = 10000
-cijfers = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
-def isGeraakt(target, num):
+numB = 10000
+numC = 10000
+numD = 10000
+numE= 10000
+
+cijfers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+alfabet = ["a", "b", "c", "d", "e", "f", "g", "h"]
+def isGeraakt(target, num, numB, numC, numD, numE):
     #print(type(target))
     #print(target)
     targetWaarde = "0"
+    target2Waarde = "0"
+    target3Waarde = "0"
+    target4Waarde = "0"
+    countWaarde = ""
     lijn = ser.readline().decode('utf-8')
-    for i, char in enumerate(lijn):
-        if char == 't':
+    for i, char in enumerate(lijn): 
+        if char == 'a':
             num = i
         if ((i > num and i< (num+4)) and (char in cijfers)):
+            #print("ervoor", num)
             targetWaarde += char
-    print(targetWaarde)
-    return (int(targetWaarde) > 100)
+        if ((i > num and i< (num+4)) and (char in alfabet)):
+            num = 1000
+            #print("erna", num)
+        if char == 'b':
+            numB = i
+        if ((i > numB and i< (numB+4)) and (char in cijfers)):
+            target2Waarde += char
+        if char == 'c':
+            numC = i
+        if ((i > numC and i< (numC+4)) and (char in cijfers)):
+            target3Waarde += char
+        if char == 'd':
+            numD = i
+        if ((i > numD and i< (numD+4)) and (char in cijfers)):
+            target4Waarde += char
+        if char == 'e':
+            numE= i
+        if (i == (numE+1)):
+            countWaarde = char
+    #print(targetWaarde, "en", target2Waarde)
+    return ((int(targetWaarde) > 100), (int(target2Waarde)>350),(int(target3Waarde)>350),(int(target4Waarde)>350),int(countWaarde))
 
 if __name__ == "__main__":
     ports = list(comports())

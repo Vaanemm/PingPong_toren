@@ -35,7 +35,7 @@ void sendLedstripFrame(uint8_t red, uint8_t green, uint8_t blue, uint8_t intensi
 }
 
 #define NUMBER_OF_LEDS 60
-#define STEP 2
+//#define STEP 2
 
 enum states {
     GREEN_UP, RED_DOWN, BLUE_UP, GREEN_DOWN, RED_UP, BLUE_DOWN
@@ -44,6 +44,8 @@ enum states {
 enum count {
     UP, DOWN
 };
+
+uint8_t deCount = 0;
 
 void updateLedstripAnimation(void) {
 
@@ -174,11 +176,20 @@ void updateLedstripAnimation(void) {
 
     bool ledGeraakt = getLedGeraakt();
     bool moetStoppen = getMoetStoppen();
-    if (moetStoppen == true){
-            for (uint8_t led = 0; led < NUMBER_OF_LEDS; led++){
-                sendLedstripFrame(0xFF, 0x00, 0x00, 0x05);
-            }
+    if (moetStoppen==true){
+        counter = 0;
+        deCount = 1;
+    }
+    if (counter <= 20){
+        sendLedstripStartFrame();
+        for (uint8_t led = 0; led < NUMBER_OF_LEDS; led++){
+            sendLedstripFrame(0x00, 0x00, 0x00, 0x05);
+        }
+        sendLedstripEndFrame();
+        //moetStoppen = false;
+        counter = counter+1;
     }else if (ledGeraakt == true){
+        deCount = 0;
         for (uint8_t i = 0; i<3; i++){
             sendLedstripStartFrame();
             for (uint8_t led = 0; led < NUMBER_OF_LEDS; led++){
@@ -197,6 +208,7 @@ void updateLedstripAnimation(void) {
         }
         setLedGeraakt();
     }else {
+        deCount = 0;
         sendLedstripStartFrame();
         for (uint8_t led = 0; led < NUMBER_OF_LEDS; led++){
             uint16_t hoogtEbal = getHoogtesensor();
@@ -245,3 +257,6 @@ void initLedstrip(void) {
     tmr_ledstrip_OverflowCallbackRegister(updateLedstripAnimation);
 }
 
+int getCount(void){
+    return deCount;
+}
