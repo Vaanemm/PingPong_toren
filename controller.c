@@ -60,7 +60,7 @@ int buiten(void) {
 
 
 //setters
-//void setSetpoint(uint16_t new_setpoint) {setpoint = new_setpoint;}
+void setSetpoint(uint16_t new_setpoint) {setpoint = new_setpoint;}
 void setDutycycle(uint16_t new_dutycycle) {dutycycle = new_dutycycle;}
 //void setKp(float new_kp) {kp = new_kp;}
 //void setKi(float new_ki) {ki = new_ki;}

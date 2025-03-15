@@ -81,12 +81,12 @@ void uartHandler(void) {
         case 'z':
             nobody();
             break;
-        /*case 'S': //Verander setpoint
+        case 'S': //Verander setpoint
         case 's':
             //str+1 omdat str het eerste karakter (s in dit geval) is, de cijfers komen erna
-            setSetpoint((uint16_t) atoi(str + 1));
+            //setSetpoint((uint16_t) atoi(str + 1));
             printf("changed setpoint\r\n");
-            break;*/
+            break;
             /*
         case 'P': //Verander proportion versterking
         case 'p':

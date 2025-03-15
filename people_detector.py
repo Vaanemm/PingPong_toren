@@ -150,7 +150,7 @@ if __name__ == '__main__':
                 #print("in de stopping")
                 muziek_drummen.stop()
                 speeltdrum = False
-            elif geraakt4 == True:
+            elif geraakt == True or geraakt2 == True or geraakt3 == True or geraakt4 == True:
                 #print('je zou moeten raken')
                 doeDeAnimatie()
                 muziek_drummen.stop()
@@ -159,6 +159,14 @@ if __name__ == '__main__':
                 #klappen.play()
                 #time.sleep(3.2) #is in seconden
                 speeltdrum = False
+                if geraakt == True:
+                    ser.write('s100\n'.encode('ascii'))
+                elif geraakt2 == True:
+                    ser.write('s283\n'.encode('ascii'))
+                elif geraakt3 == True:
+                    ser.write('s566\n'.encode('ascii'))
+                elif geraakt4 == True:
+                    ser.write('s850\n'.encode('ascii'))
             elif (speeltdrum == False):
                 #print('hehe')
                 muziek_drummen.play()
