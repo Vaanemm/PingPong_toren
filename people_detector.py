@@ -158,21 +158,21 @@ if __name__ == '__main__':
                 muziek_drummen.stop()
                 shoot.play()
                 speeltdrum = False
-                teRaken = teRaken + 1
+                teRaken = 2
                 ser.write('s283\n'.encode('ascii'))
             elif geraakt2 == True and teRaken == 2:
                 doeDeAnimatie()
                 muziek_drummen.stop()
                 shoot.play()
                 speeltdrum = False
-                teRaken = teRaken + 1
+                teRaken = 3
                 ser.write('s566\n'.encode('ascii'))
             elif geraakt3 == True and teRaken == 3:
                 doeDeAnimatie()
                 muziek_drummen.stop()
                 shoot.play()
                 speeltdrum = False
-                teRaken = teRaken + 1
+                teRaken = 4
                 ser.write('s850\n'.encode('ascii'))
             elif geraakt4 == True and teRaken == 4:
                 doeDeAnimatie()
