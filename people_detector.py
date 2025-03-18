@@ -95,6 +95,9 @@ if __name__ == '__main__':
     shoot.set_volume(0.9)  #1.0 is max volume
     #klappen.set_volume(0.9)
     muziek_drummen.set_volume(0.7)
+    
+    teRaken = 1
+    ser.write('s100\n'.encode('ascii'))
 
 
     try:
@@ -150,30 +153,40 @@ if __name__ == '__main__':
                 #print("in de stopping")
                 muziek_drummen.stop()
                 speeltdrum = False
-            elif geraakt == True or geraakt2 == True or geraakt3 == True or geraakt4 == True:
-                #print('je zou moeten raken')
+            elif geraakt == True and teRaken == 1:
                 doeDeAnimatie()
                 muziek_drummen.stop()
                 shoot.play()
-                #time.sleep(1)
-                #klappen.play()
-                #time.sleep(3.2) #is in seconden
                 speeltdrum = False
-                if geraakt == True:
-                    ser.write('s100\n'.encode('ascii'))
-                elif geraakt2 == True:
-                    ser.write('s283\n'.encode('ascii'))
-                elif geraakt3 == True:
-                    ser.write('s566\n'.encode('ascii'))
-                elif geraakt4 == True:
-                    ser.write('s850\n'.encode('ascii'))
+                teRaken = teRaken + 1
+                ser.write('s283\n'.encode('ascii'))
+            elif geraakt2 == True and teRaken == 2:
+                doeDeAnimatie()
+                muziek_drummen.stop()
+                shoot.play()
+                speeltdrum = False
+                teRaken = teRaken + 1
+                ser.write('s566\n'.encode('ascii'))
+            elif geraakt3 == True and teRaken == 3:
+                doeDeAnimatie()
+                muziek_drummen.stop()
+                shoot.play()
+                speeltdrum = False
+                teRaken = teRaken + 1
+                ser.write('s850\n'.encode('ascii'))
+            elif geraakt4 == True and teRaken == 4:
+                doeDeAnimatie()
+                muziek_drummen.stop()
+                shoot.play()
+                speeltdrum = False
+                teRaken = 1
+                ser.write('s100\n'.encode('ascii'))
             elif (speeltdrum == False):
                 #print('hehe')
                 muziek_drummen.play()
                 speeltdrum = True
              
-                
-             
+   
                 
              
             # Escape
