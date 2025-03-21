@@ -95,7 +95,7 @@ if __name__ == '__main__':
     
     shoot.set_volume(0.9)  #1.0 is max volume
     klappen.set_volume(1)
-    muziek_drummen.set_volume(0.7)
+    muziek_drummen.set_volume(0.25)
     last_shot.set_volume(0.9)
     
     teRaken = 1
