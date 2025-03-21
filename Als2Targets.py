@@ -160,15 +160,10 @@ if __name__ == '__main__':
                 muziek_drummen.stop()
                 shoot.play()
                 speeltdrum = False
-                teRaken = 2
+                teRaken = 4
                 ser.write('s420\n'.encode('ascii'))
             elif geraakt2 == True and teRaken == 2:
-                doeDeAnimatie()
-                muziek_drummen.stop()
-                shoot.play()
-                speeltdrum = False
-                teRaken = 4
-                ser.write('760\n'.encode('ascii'))
+                print('ook niks')
             elif geraakt3 == True and teRaken == 3:
                 print('niks')
             elif geraakt4 == True and teRaken == 4:
@@ -186,7 +181,7 @@ if __name__ == '__main__':
                 muziek_drummen.play()
                 speeltdrum = True
              
-        
+            
                 
              
             # Escape
