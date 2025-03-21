@@ -62,7 +62,7 @@ def isGeraakt(num, numB, numC, numD, numE):
         if ((i > numE) and (char in alfabet)):
              numE = 1000
              
-    #print(f' 1 = {targetWaarde}, 2 is {target2Waarde}, 3 is {target3Waarde} en 4 is {target4Waarde}')      
+    print(f' 1 = {targetWaarde}, 2 is {target2Waarde}, 3 is {target3Waarde} en 4 is {target4Waarde}')      
             
     #print(targetWaarde, "en", target2Waarde)
     return ((int(targetWaarde) > 100), (int(target2Waarde)>400),(int(target3Waarde)>100),(int(target4Waarde)>100),int(countWaarde))
