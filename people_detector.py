@@ -9,8 +9,8 @@ import time
 from pygame import mixer
 import pygame
 
-from Begin import doeDeAnimatie
-from Begin import isGeraakt
+from begin import doeDeAnimatie
+from begin import isGeraakt
 
 ser = Serial('/dev/cu.usbserial-A10JVCT6', 9600, timeout=0.5)
 
@@ -97,7 +97,7 @@ if __name__ == '__main__':
     muziek_drummen.set_volume(0.7)
     
     teRaken = 1
-    ser.write('s100\n'.encode('ascii'))
+    ser.write('s110\n'.encode('ascii'))
 
 
     try:
@@ -159,28 +159,28 @@ if __name__ == '__main__':
                 shoot.play()
                 speeltdrum = False
                 teRaken = 2
-                ser.write('s283\n'.encode('ascii'))
+                ser.write('s420\n'.encode('ascii'))
             elif geraakt2 == True and teRaken == 2:
                 doeDeAnimatie()
                 muziek_drummen.stop()
                 shoot.play()
                 speeltdrum = False
                 teRaken = 3
-                ser.write('s566\n'.encode('ascii'))
+                ser.write('s760\n'.encode('ascii'))
             elif geraakt3 == True and teRaken == 3:
                 doeDeAnimatie()
                 muziek_drummen.stop()
                 shoot.play()
                 speeltdrum = False
                 teRaken = 4
-                ser.write('s850\n'.encode('ascii'))
+                ser.write('s1045\n'.encode('ascii'))
             elif geraakt4 == True and teRaken == 4:
                 doeDeAnimatie()
                 muziek_drummen.stop()
                 shoot.play()
                 speeltdrum = False
                 teRaken = 1
-                ser.write('s100\n'.encode('ascii'))
+                ser.write('s110\n'.encode('ascii'))
             elif (speeltdrum == False):
                 #print('hehe')
                 muziek_drummen.play()
