@@ -89,12 +89,14 @@ if __name__ == '__main__':
 
     pygame.mixer.init()
     shoot = pygame.mixer.Sound("/Users/vladislavandruetan/Downloads/shoot-1-81135.mp3")
-    #klappen=pygame.mixer.Sound("/Users/vladislavandruetan/Downloads/crowd-applause-236697.mp3")
+    klappen=pygame.mixer.Sound("/Users/vladislavandruetan/Downloads/crowd-applause-236697.mp3")
     muziek_drummen=pygame.mixer.Sound("/Users/vladislavandruetan/Downloads/cinematic-drums-146028.mp3")
+    last_shot=pygame.mixer.Sound("/Users/vladislavandruetan/Downloads/mixkit-shatter-shot-explosion-1693.wav")
     
     shoot.set_volume(0.9)  #1.0 is max volume
-    #klappen.set_volume(0.9)
+    klappen.set_volume(1)
     muziek_drummen.set_volume(0.7)
+    last_shot.set_volume(0.9)
     
     teRaken = 1
     ser.write('s110\n'.encode('ascii'))
@@ -177,8 +179,11 @@ if __name__ == '__main__':
             elif geraakt4 == True and teRaken == 4:
                 doeDeAnimatie()
                 muziek_drummen.stop()
-                shoot.play()
-                speeltdrum = False
+                last_shot.play()
+                speeltdrum = False        
+                time.sleep(1)   
+                klappen.play()
+                time.sleep(2)
                 teRaken = 1
                 ser.write('s110\n'.encode('ascii'))
             elif (speeltdrum == False):
