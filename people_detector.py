@@ -122,7 +122,7 @@ if __name__ == '__main__':
         
             # detect people in the image
             # returns the bounding boxes for the detected objects
-            boxes, weights = hog.detectMultiScale(gray, winStride=(8,8), hitThreshold=0.45)
+            boxes, weights = hog.detectMultiScale(gray, winStride=(8,8), hitThreshold=0.5)
         
             boxes = np.array([[x, y, x + w, y + h] for (x, y, w, h) in boxes])
             if len(boxes)>0:
