@@ -9,8 +9,8 @@ import time
 from pygame import mixer
 import pygame
 
-from Begin import doeDeAnimatie
-from Begin import isGeraakt
+from begin import doeDeAnimatie
+from begin import isGeraakt
 
 ser = Serial('/dev/cu.usbserial-A10JVCT6', 9600, timeout=0.5)
 
@@ -89,12 +89,17 @@ if __name__ == '__main__':
 
     pygame.mixer.init()
     shoot = pygame.mixer.Sound("/Users/vladislavandruetan/Downloads/shoot-1-81135.mp3")
-    #klappen=pygame.mixer.Sound("/Users/vladislavandruetan/Downloads/crowd-applause-236697.mp3")
+    klappen=pygame.mixer.Sound("/Users/vladislavandruetan/Downloads/crowd-applause-236697.mp3")
     muziek_drummen=pygame.mixer.Sound("/Users/vladislavandruetan/Downloads/cinematic-drums-146028.mp3")
+    last_shot=pygame.mixer.Sound("/Users/vladislavandruetan/Downloads/mixkit-shatter-shot-explosion-1693.wav")
     
     shoot.set_volume(0.9)  #1.0 is max volume
-    #klappen.set_volume(0.9)
-    muziek_drummen.set_volume(0.7)
+    klappen.set_volume(1)
+    muziek_drummen.set_volume(0.25)
+    last_shot.set_volume(0.9)
+    
+    teRaken = 1
+    ser.write('s110\n'.encode('ascii'))
 
 
     try:
@@ -117,13 +122,13 @@ if __name__ == '__main__':
         
             # detect people in the image
             # returns the bounding boxes for the detected objects
-            boxes, weights = hog.detectMultiScale(gray, winStride=(8,8), hitThreshold=0.3)
+            boxes, weights = hog.detectMultiScale(gray, winStride=(8,8), hitThreshold=0.45)
         
             boxes = np.array([[x, y, x + w, y + h] for (x, y, w, h) in boxes])
             if len(boxes)>0:
-                ser.write(f'x\n'.encode('ascii'))
+                ser.write('x\n'.encode('ascii'))
             else:
-                ser.write(f'z\n'.encode('ascii'))
+                ser.write('z\n'.encode('ascii'))
             
         
             for (xA, yA, xB, yB) in boxes:
@@ -141,31 +146,47 @@ if __name__ == '__main__':
             
             
             lijn = ser.readline().decode('utf-8')
-            print(lijn)
+            #print(lijn)
             
-            geraakt, geraakt2, geraakt3, geraakt4, countWaarde = isGeraakt(lijn, num, numB, numC, numD, numE)
-            print("Geraakt =", geraakt, "Geraakt2 =", geraakt2,"Geraakt3 =", geraakt3,"Geraakt4 =", geraakt4, "countWaarde =",countWaarde)
+            geraakt, geraakt2, geraakt3, geraakt4, countWaarde = isGeraakt(num, numB, numC, numD, numE)
+            #print("Geraakt =", geraakt, "Geraakt2 =", geraakt2,"Geraakt3 =", geraakt3,"Geraakt4 =", geraakt4, "countWaarde =",countWaarde)
             
             if countWaarde == 1:
                 #print("in de stopping")
                 muziek_drummen.stop()
                 speeltdrum = False
-            elif geraakt4 == True:
-                #print('je zou moeten raken')
+            elif geraakt == True and teRaken == 1:
                 doeDeAnimatie()
                 muziek_drummen.stop()
                 shoot.play()
-                #time.sleep(1)
-                #klappen.play()
-                #time.sleep(3.2) #is in seconden
                 speeltdrum = False
+                teRaken = 2
+                ser.write('s420\n'.encode('ascii'))
+            elif geraakt2 == True and teRaken == 2:
+                doeDeAnimatie()
+                muziek_drummen.stop()
+                shoot.play()
+                speeltdrum = False
+                teRaken = 4
+                ser.write('760\n'.encode('ascii'))
+            elif geraakt3 == True and teRaken == 3:
+                print('niks')
+            elif geraakt4 == True and teRaken == 4:
+                doeDeAnimatie()
+                muziek_drummen.stop()
+                last_shot.play()
+                speeltdrum = False        
+                time.sleep(1)   
+                klappen.play()
+                time.sleep(2)
+                teRaken = 1
+                ser.write('s110\n'.encode('ascii'))
             elif (speeltdrum == False):
                 #print('hehe')
                 muziek_drummen.play()
                 speeltdrum = True
              
-                
-             
+        
                 
              
             # Escape
