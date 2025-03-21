@@ -95,13 +95,13 @@ if __name__ == "__main__":
     # ser.write(f'p{getal_p}\n'.encode('ascii'))
 
 
-    while True:
+    '''while True:
         time.sleep(0.1)
         #print(ser.readline().decode('utf-8'))
         lijn = ser.readline().decode('utf-8')
         #print(lijn)
         if isGeraakt(lijn, num) == True:
-            doeDeAnimatie()
+            doeDeAnimatie()'''
 
 
 

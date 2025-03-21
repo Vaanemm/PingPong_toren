@@ -144,10 +144,10 @@ if __name__ == '__main__':
             
             
             lijn = ser.readline().decode('utf-8')
-            print(lijn)
+            #print(lijn)
             
             geraakt, geraakt2, geraakt3, geraakt4, countWaarde = isGeraakt(num, numB, numC, numD, numE)
-            print("Geraakt =", geraakt, "Geraakt2 =", geraakt2,"Geraakt3 =", geraakt3,"Geraakt4 =", geraakt4, "countWaarde =",countWaarde)
+            #print("Geraakt =", geraakt, "Geraakt2 =", geraakt2,"Geraakt3 =", geraakt3,"Geraakt4 =", geraakt4, "countWaarde =",countWaarde)
             
             if countWaarde == 1:
                 #print("in de stopping")
